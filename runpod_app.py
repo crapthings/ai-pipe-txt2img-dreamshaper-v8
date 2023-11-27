@@ -14,6 +14,7 @@ def run (job, _generator = None):
         print('debug', job)
 
         _input = job.get('input')
+
         debug = _input.get('debug')
         upload_url = _input.get('upload_url')
 
@@ -21,14 +22,19 @@ def run (job, _generator = None):
         negative_prompt = _input.get('negative_prompt', '')
         width = int(np.clip(_input.get('width', 768), 256, 1024))
         height = int(np.clip(_input.get('height', 768), 256, 1024))
-        # width = _input.get('width', 768)
-        # height = _input.get('height', 768)
-        num_inference_steps = _input.get('num_inference_steps', 50)
-        guidance_scale = _input.get('guidance_scale', 7.0)
+        num_inference_steps = int(np.clip(_input.get('num_inference_steps', 30), 20, 150))
+        guidance_scale = float(np.clip(_input.get('guidance_scale', 13.0), 0, 30))
         seed = _input.get('seed')
 
         upscale = _input.get('upscale')
+
         strength = _input.get('strength')
+
+        if strength is not None:
+            strength = float(np.clip(strength, 0, 1))
+
+        if upscale is not None:
+            upscale = float(np.clip(upscale, 1, 4))
 
         renderWidth, renderHeight = rounded_size(width, height)
 
@@ -48,7 +54,7 @@ def run (job, _generator = None):
         output_image = output_image.resize([width, height])
 
         if upscale is not None:
-            output_image = output_image.resize([width * upscale, height * upscale])
+            output_image = output_image.resize([int(width * upscale), int(height * upscale)])
 
         if strength is not None:
             output_image = img2img(
