@@ -12,7 +12,7 @@
         "guidance_scale": 13,
 
         "seed": 123,
-        "upscale": 2,
+        "upscale": 2.5,
         "strength": 0.5
     },
     "webhook": "http://localhost:3000/api/runpod-webhook"
