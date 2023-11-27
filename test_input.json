@@ -1,0 +1,9 @@
+{
+    "input": {
+        "debug": true,
+        "upload_url": "https://naivelabs-tmp.s3.us-west-1.amazonaws.com/2.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAVS3UGYJ4VVPOZ2X5%2F20231126%2Fus-west-1%2Fs3%2Faws4_request&X-Amz-Date=20231126T055845Z&X-Amz-Expires=3600&X-Amz-Signature=575ac426bc9d524a4926e3ac84d5c9abef00c21763d23b2b25d1469c901855a1&X-Amz-SignedHeaders=host&x-id=PutObject",
+        "prompt": "a dog",
+        "seed": 123
+    },
+    "webhook": "http://localhost:3000/api/runpod-webhook"
+}
