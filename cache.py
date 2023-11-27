@@ -1,10 +1,11 @@
 import torch
-from diffusers import DiffusionPipeline
-from config import model_name, model_dir
+from diffusers import StableDiffusionPipeline
+
+from config import model_name
 
 print('cache model')
 
-pipe = DiffusionPipeline.from_single_file(
+pipe = StableDiffusionPipeline.from_single_file(
   model_name,
   torch_dtype = torch.float16,
   variant = 'fp16',
