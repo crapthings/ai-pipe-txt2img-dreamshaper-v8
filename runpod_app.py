@@ -6,7 +6,7 @@ import torch
 import runpod
 
 from utils import extract_origin_pathname, upload_image, rounded_size
-from txt2img import txt2img, img2img
+from txt2img import txt2img, img2img, compel_proc
 
 def run (job, _generator = None):
     # prepare task
@@ -41,9 +41,14 @@ def run (job, _generator = None):
         if seed is not None:
             _generator = torch.Generator(device = 'cuda').manual_seed(seed)
 
+        prompt_embeds = compel_proc(prompt)
+        negative_prompt_embeds = compel_proc(negative_prompt)
+
         output_image = txt2img(
-            prompt = prompt,
-            negative_prompt = negative_prompt,
+            # prompt = prompt,
+            # negative_prompt = negative_prompt,
+            prompt_embeds = prompt_embeds,
+            negative_prompt_embeds = negative_prompt_embeds,
             width = renderWidth,
             height = renderHeight,
             num_inference_steps = num_inference_steps,
@@ -59,8 +64,10 @@ def run (job, _generator = None):
         if strength is not None:
             output_image = img2img(
                 image = output_image,
-                prompt = prompt,
-                negative_prompt = negative_prompt,
+                # prompt = prompt,
+                # negative_prompt = negative_prompt,
+                prompt_embeds = prompt_embeds,
+                negative_prompt_embeds = negative_prompt_embeds,
                 num_inference_steps = math.ceil(num_inference_steps / strength),
                 guidance_scale = guidance_scale,
                 strength = strength,
